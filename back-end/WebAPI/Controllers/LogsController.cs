@@ -2,12 +2,14 @@
 using DTOs.Input;
 using DTOs.Output;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebAPI.Controllers
 {
     /// <summary>
     /// Logs controller
     /// </summary>
+    [EnableCors]
     [Route("api/[controller]")]
     public class LogsController : Controller
     {

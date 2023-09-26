@@ -32,14 +32,14 @@ namespace DTOs.Input
 		/// </summary>
 		[Required(ErrorMessage = "Initial date query parameter is required")]
 		[DataType(DataType.Date)]
-		public DateTime InitialDate { get; set; }
+		public DateTime? InitialDate { get; set; }
 
 		/// <summary>
 		/// Final date filter
 		/// </summary>
 		[Required(ErrorMessage = "Final date query parameter is required")]
         [DataType(DataType.Date)]
-        public DateTime FinalDate { get; set; }
+        public DateTime? FinalDate { get; set; }
 
 		/// <summary>
 		/// Instance pagination DTO object
