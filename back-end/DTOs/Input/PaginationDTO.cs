@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DTOs.Input
 {
 	/// <summary>
 	/// Pagination data transfer object
 	/// </summary>
-	public class PaginationDTO : IValidatableObject
+	public class PaginationDTO
 	{
 		/// <summary>
 		/// Page number
@@ -17,9 +18,14 @@ namespace DTOs.Input
 		/// <summary>
 		/// Items per page
 		/// </summary>
-		[Required(ErrorMessage = "Quantity query parameter is required")]
-        [Range(1, 255, ErrorMessage = "Quantity must be between 1 and 255")]
-        public byte Quantity { get; set; }
+		[Required(ErrorMessage = "Page size query parameter is required")]
+        [Range(1, 255, ErrorMessage = "Page size must be between 1 and 255")]
+        public byte PageSize { get; set; }
+
+		/// <summary>
+		/// Log type
+		/// </summary>
+		public LogType? Type { get; set; }
 
 		/// <summary>
 		/// Initial date filter
@@ -44,13 +50,11 @@ namespace DTOs.Input
 		}
 
 		/// <summary>
-		/// Custom initial and final date validation
+		/// Validate initial and final dates
 		/// </summary>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-			if (FinalDate < InitialDate)
-				yield return new ValidationResult("Final date must be greater than initial date", new[] { "FinalDate" });
-        }
+		/// <returns>Final date is less than initial date?</returns>
+		public bool ValidateDates() =>
+			FinalDate < InitialDate;
     }
 }
 

@@ -22,8 +22,8 @@ namespace Services
 		/// Get logs
 		/// </summary>
 		/// <param name="pagination">Pagination data</param>
-		/// <returns>Logs list</returns>
-		public Task<List<LogOutputDTO>> Get(PaginationDTO pagination);
+		/// <returns>Paginated logs</returns>
+		public Task<PaginationOutputDTO<LogOutputDTO>> Get(PaginationDTO pagination);
 	}
 
 	/// <summary>
@@ -60,17 +60,17 @@ namespace Services
         }
 
         /// <summary>
-        /// Get logs
-        /// </summary>
-        /// <param name="pagination">Pagination data</param>
-        /// <returns>Logs list</returns>
-        public async Task<List<LogOutputDTO>> Get(PaginationDTO pagination)
-		{
-			Pagination paginationData = Mapper.Map<Pagination>(pagination); // Parse pagination DTO to model
+		/// Get logs
+		/// </summary>
+		/// <param name="pagination">Pagination data</param>
+		/// <returns>Paginated logs</returns>
+		public async Task<PaginationOutputDTO<LogOutputDTO>> Get(PaginationDTO pagination)
+        {
+			PaginationOutputDTO<Log> data = await LogsData.Get(pagination: pagination); // Get logs list
 
-			List<Log> logs = await LogsData.Get(pagination: paginationData); // Get logs list
+			List<LogOutputDTO> logs = Mapper.Map<List<LogOutputDTO>>(data.Items);
 
-			return Mapper.Map<List<LogOutputDTO>>(logs); // Return logs
+			return new(count: data.Count, items: logs, pages: data.Pages);
 		}
     }
 }
