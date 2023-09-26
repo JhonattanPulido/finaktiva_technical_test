@@ -1,5 +1,6 @@
 ﻿using Models;
-using MongoDB.Bson;
+using DTOs.Input;
+using DTOs.Output;
 using MongoDB.Driver;
 
 namespace Data
@@ -16,12 +17,12 @@ namespace Data
 		/// <returns>Charged log data</returns>
 		public Task<Log> Create(Log log);
 
-		/// <summary>
-		/// Get logs
-		/// </summary>
-		/// <param name="pagination">Pagination data</param>
-		/// <returns>Logs list</returns>
-		public Task<List<Log>> Get(Pagination pagination);
+        /// <summary>
+        /// Get logs
+        /// </summary>
+        /// <param name="pagination">Pagination data</param>
+        /// <returns>Paginated logs</returns>
+        public Task<PaginationOutputDTO<Log>> Get(PaginationDTO pagination);
 	}
 
 	/// <summary>
@@ -58,9 +59,31 @@ namespace Data
 		/// Get logs
 		/// </summary>
 		/// <param name="pagination">Pagination data</param>
-		/// <returns>Logs list</returns>
-		public async Task<List<Log>> Get(Pagination pagination) =>
-			await LogsCollection.Find(new BsonDocument()).ToListAsync();
+		/// <returns>Paginated logs</returns>
+		public async Task<PaginationOutputDTO<Log>> Get(PaginationDTO pagination)
+		{
+			FilterDefinitionBuilder<Log> filterBuilder = Builders<Log>.Filter;
+
+			// Set dates ranges
+			FilterDefinition<Log> filter =
+				filterBuilder.Gte(x => x.CreationDate, pagination.InitialDate) &
+				filterBuilder.Lte(x => x.CreationDate, pagination.FinalDate);
+
+            List<Log> logs = await LogsCollection
+				.Find(pagination.Type.HasValue ?
+					filter & filterBuilder.Eq(x => x.Type, pagination.Type) :
+					filter)
+				.SortByDescending(x => x.CreationDate)
+				.Skip((pagination.PageNumber - 1) * pagination.PageSize)
+				.Limit(pagination.PageSize)
+				.ToListAsync(); // Get paginated logs
+
+			long count = await LogsCollection.CountDocumentsAsync(pagination.Type.HasValue ?
+                    filter & filterBuilder.Eq(x => x.Type, pagination.Type) :
+                    filter); // Get logs count
+
+			return new(count: count, items: logs, pageSize: pagination.PageSize);
+		}
 	}
 }
 

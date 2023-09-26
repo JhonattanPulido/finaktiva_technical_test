@@ -29,8 +29,14 @@ namespace WebAPI.Controllers
 
         // GET: api/logs
         [HttpGet]
-        public async Task<ActionResult<List<LogOutputDTO>>> Get([FromQuery] PaginationDTO pagination) =>
-            Ok(await LogsServices.Get(pagination: pagination));
+        public async Task<ActionResult<PaginationOutputDTO<LogOutputDTO>>> Get([FromQuery] PaginationDTO pagination)
+        {
+            // Validate initial and final dates
+            if (pagination.ValidateDates())
+                return BadRequest(new { message = "Final date must have less than initial date" });
+
+            return Ok(await LogsServices.Get(pagination: pagination));
+        }
     }
 }
 

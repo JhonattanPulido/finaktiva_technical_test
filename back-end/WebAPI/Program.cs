@@ -7,8 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 #region Mongo DB setup
-builder.Services.AddScoped(_ => new MongoClient(
-    connectionString: builder.Configuration["Database:ConnectionString"]));
+MongoClientSettings mongoSettings = MongoClientSettings.FromConnectionString(
+    connectionString: builder.Configuration["Database:ConnectionString"]);
+
+mongoSettings.ServerApi = new(version: ServerApiVersion.V1);
+
+builder.Services.AddScoped(_ => new MongoClient(mongoSettings));
 
 builder.Services.AddScoped(provider =>
     provider.GetRequiredService<MongoClient>().GetDatabase(
