@@ -16,10 +16,12 @@
   <ItemGroup>
     <None Remove="Controllers\" />
     <None Remove="Mapper Profiles\" />
+    <None Remove="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Mapper Profiles\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
