@@ -1,15 +1,29 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Pagination, PaginationOutput } from '../models/pagination.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogsService {
 
+  private webApiUrl: string = 'https://localhost:7002/api/logs'
+
   constructor(private http: HttpClient) { }
 
-  public getAll() {
-    this.http.get('https://localhost:7002/api/logs?pageNumber=1&pageSize=10')
-      .subscribe((data) => console.log(data));
+  /**
+   * Get paginated logs
+   * @param pagination Pagination information
+   * @returns Paginated logs
+   */
+  public getAll(pagination: Pagination) : Observable<PaginationOutput> {
+    const params: HttpParams = new HttpParams()
+      .set('pageNumber', pagination.pageNumber)
+      .set('pageSize', pagination.pageSize)
+      .set('initialDate', pagination.initialDate.toISOString().split('T')[0])
+      .set('finalDate', pagination.finalDate.toISOString().split('T')[0]);
+
+    return this.http.get<PaginationOutput>(this.webApiUrl, { params: params });
   }
 }

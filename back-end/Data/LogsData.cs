@@ -67,7 +67,7 @@ namespace Data
 			// Set dates ranges
 			FilterDefinition<Log> filter =
 				filterBuilder.Gte(x => x.CreationDate, pagination.InitialDate) &
-				filterBuilder.Lte(x => x.CreationDate, pagination.FinalDate);
+				filterBuilder.Lte(x => x.CreationDate, pagination.FinalDate?.AddDays(1));
 
             List<Log> logs = await LogsCollection
 				.Find(pagination.Type.HasValue ?
