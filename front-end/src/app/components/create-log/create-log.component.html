@@ -1,4 +1,4 @@
-<form class="log_form">
+<form [formGroup]="logForm" (ngSubmit)="onSubmit()" class="log_form">
     <div class="logs_table --bordered">
         <div class="logs_table_header table_row">
             <span>Create event log</span>
@@ -7,21 +7,38 @@
             <p class="form_hint">Fill the form fields to create a new event log. If you don't fill <b>Creation Date</b> fiel, the API set automatically the actual date and time.</p>
             <div class="form_control">
                 <span>Creation Date <b>(optional)</b></span>
-                <input type="text" placeholder="yyyy/MM/ddTHH:mm:ss" class="input --bordered">
+                <input type="text" placeholder="MM/ddTHH:mm:ss" class="input --bordered" formControlName="creationDate">
             </div>
             <div class="form_control">
                 <span>Type <b>*</b></span>
-                <input type="text" placeholder="MM/dd" class="input --bordered">
+                <button type="button" class="btn btn_chevron filter_btn --bordered" (click)="manageLogTypesMenu(true)">
+                    Status ({{selectedStatus.name}})
+                    <img src="https://img.icons8.com/material/1F2328/96/sort-down--v1.png" alt="sort-down--v1"/>
+                </button>
+                <ul #logTypes class="status_menu log_form_types --bordered">
+                    <li class="status_menu_item status_menu_header">
+                        <span>Log types</span>
+                        <button type="button" (click)="manageLogTypesMenu(false)">
+                            <img src="https://img.icons8.com/material/96/multiply--v1.png" alt="multiply--v1"/>
+                        </button>
+                    </li>
+                    <li *ngFor="let status of statusList" class="status_menu_item">
+                        <button type="button" class="status_menu_btn" (click)="setSelectedLogType(status)">
+                            <img src="https://img.icons8.com/material/{{status.color}}/96/filled-circle.png" alt="filled-circle"/>
+                            {{status.name}}
+                        </button>
+                    </li>
+                </ul>
             </div>
             <div class="form_control form_control_description">
                 <span>Description <b>*</b></span>
-                <input type="text" placeholder="ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit" class="input --bordered">
+                <input type="text" placeholder="ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit" class="input --bordered" formControlName="description">
             </div>
         </div>
     </div>
     <div class="log_form_submit">
-        <p>Required fields are marked with an asterik (*)</p>
-        <button type="submit" class="btn search_btn --bordered">
+        <p>Required fields are marked with an asterisk (*)</p>
+        <button type="submit" [disabled]="!logForm.valid" class="btn search_btn --bordered">
             Create
         </button>
     </div>

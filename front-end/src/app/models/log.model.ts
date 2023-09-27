@@ -4,5 +4,5 @@ export interface Log {
     id?: string;
     description: string;
     type: LogType;
-    creationDate: Date;
+    creationDate?: Date;
 }

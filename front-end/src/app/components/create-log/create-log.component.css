@@ -17,6 +17,7 @@
 }
 
 .form_control {
+    position: relative;
     display: flex;
     flex-flow: column;
     gap: .62rem;
@@ -27,7 +28,7 @@
     font-weight: 500;
 }
 
-.form_control input {
+.form_control input, .form_control > button {
     height: 2.1rem;
 }
 
@@ -47,4 +48,8 @@
     font-size: .88rem;
     font-weight: 300;
     font-style: italic;
+}
+
+.log_form_types {
+    top: 4.5rem !important;
 }
