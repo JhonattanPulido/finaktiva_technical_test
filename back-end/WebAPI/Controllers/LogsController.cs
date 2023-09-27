@@ -39,6 +39,11 @@ namespace WebAPI.Controllers
 
             return Ok(await LogsServices.Get(pagination: pagination));
         }
+
+        // POST api/logs/exception?message=value
+        [HttpGet("exception")]
+        public Task<ActionResult> SaveException([FromQuery] string message) =>
+            throw new Exception(message);
     }
 }
 
