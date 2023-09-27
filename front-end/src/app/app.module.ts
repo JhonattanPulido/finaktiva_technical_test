@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LogsComponent } from './components/logs/logs.component';
+import { LogsComponent } from './components/event_logs/logs.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,110 @@
+<section id="logs_cntr">
+    <div class="notice --bordered">
+        <div class="notice_text">
+            <span>👋 Logs event application</span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+    <div class="logs_table_top">
+        <div class="logs_table_top_metadata">
+            <img src="https://img.icons8.com/material/96/hashtag-large--v1.png" alt="hashtag-large--v1"/>
+            <div *ngIf="data; then logsCount else logsZeroCount"></div>
+            <ng-template #logsCount>
+                <span>{{data!.count}} Logs</span>
+            </ng-template>
+            <ng-template #logsZeroCount>
+                <span>0 Logs</span>
+            </ng-template>
+        </div>
+        <div class="logs_table_top_filters">
+            <div class="filter_mask">
+                <button class="btn filter_btn --bordered filter_date_btn">
+                    Initial Date
+                </button>
+                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd">
+            </div>
+            <div class="filter_mask">
+                <button class="btn filter_btn --bordered filter_date_btn">
+                    Final Date
+                </button>
+                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd">
+            </div>
+            <div class="filter_mask">
+                <button type="button" class="btn btn_chevron filter_btn --bordered" (click)="manageStatusFilter(true)">
+                    Status
+                    <img src="https://img.icons8.com/material/1F2328/96/sort-down--v1.png" alt="sort-down--v1"/>
+                </button>
+                <ul #statusFilter class="status_menu --bordered">
+                    <li class="status_menu_item status_menu_header">
+                        <span>Status Filter</span>
+                        <button type="button" (click)="manageStatusFilter(false)">
+                            <img src="https://img.icons8.com/material/96/multiply--v1.png" alt="multiply--v1"/>
+                        </button>
+                    </li>
+                    <li class="status_menu_item">
+                        <button type="button" class="status_menu_btn">
+                            <img src="https://img.icons8.com/material/000000/96/filled-circle.png" alt="filled-circle"/>
+                            All
+                        </button>
+                    </li>
+                    <li class="status_menu_item">
+                        <button type="button" class="status_menu_btn">
+                            <img src="https://img.icons8.com/material/2ecc71/96/filled-circle.png" alt="filled-circle"/>
+                            Success
+                        </button>
+                    </li>
+                    <li class="status_menu_item">
+                        <button type="button" class="status_menu_btn">
+                            <img src="https://img.icons8.com/material/3498db/96/filled-circle.png" alt="filled-circle"/>
+                            Info
+                        </button>
+                    </li>
+                    <li class="status_menu_item">
+                        <button type="button" class="status_menu_btn">
+                            <img src="https://img.icons8.com/material/e67e22/96/filled-circle.png" alt="filled-circle"/>
+                            Warning
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="btn search_btn --bordered">
+                Search
+            </button>
+        </div>
+    </div>
+    <div class="logs_table --bordered">
+        <div class="logs_table_header table_row">
+            <span>ID</span>
+            <span>Description</span>
+            <span>Status</span>
+            <span>Date</span>
+        </div>
+        <div *ngIf="data; then logsItems else emptyLogs"></div>
+        <ng-template #emptyLogs>
+            <div class="table_row">
+                !NONE        
+            </div>
+        </ng-template>
+        <ng-template #logsItems>
+            <div class="logs_table_row table_row" *ngFor="let item of data!.items!">
+                <span>{{item.id}}</span>
+                <span>{{item.description | slice:0:58}}</span>
+                <span [ngSwitch]="item.type" class="log_type">
+                    <p *ngSwitchCase="0">
+                        <img src="https://img.icons8.com/material/2ecc71/96/filled-circle.png" alt="filled-circle"/>
+                        Success
+                    </p>
+                    <p *ngSwitchCase="1">
+                        <img src="https://img.icons8.com/material/3498db/96/filled-circle.png" alt="filled-circle"/>
+                        Info
+                    </p>
+                    <p *ngSwitchDefault>
+                        <img src="https://img.icons8.com/material/e67e22/96/filled-circle.png" alt="filled-circle"/>
+                        Warning
+                    </p>
+                </span>
+                <span>{{item.creationDate | date:'medium' }}</span>
+            </div>
+        </ng-template>
+    </div>
+</section>
