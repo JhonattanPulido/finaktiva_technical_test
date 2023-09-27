@@ -46,10 +46,10 @@ Se hizo uso del motor `MongoDB`, la __BD__ se desplegó en el servicio de nube `
 
 | Id | Nombre  | Descripción                                                                     |
 | -- | ------- | ------------------------------------------------------------------------------- |
-| 1  | Success | Evento satisfactorio                                                            |
-| 2  | Info    | Evento informativo                                                              |
-| 3  | Warning | Evento de advertencia                                                           |
-| 4  | Error   | Evento de error interno de la API. Las excepciones se almacenan automáticamente | 
+| 0  | Success | Evento satisfactorio                                                            |
+| 1  | Info    | Evento informativo                                                              |
+| 2  | Warning | Evento de advertencia                                                           |
+| 3  | Error   | Evento de error interno de la API. Las excepciones se almacenan automáticamente | 
 
 ## Crear log
 
@@ -65,4 +65,20 @@ A continuación, podrá encontrar la descripción de los campos del formulario:
 | Tipo            | Tipo de `log`                      | select | :heavy_check_mark: | `0-Success`, `1-Info` o `2-Warning` |
 | Descripción     | Descripción detallada del `log`    | text   | :heavy_check_mark: | _Descripción del evento 1_          |
 
-___**Nota___: El formato de la fecha de creación es `MM/ddTHH:mm:ss`: `MM` mes, `dd` día, `HH` horas, `mm` minutos y `ss` segundos.
+___**Nota:___ El formato de la fecha de creación es `MM/ddTHH:mm:ss`: `MM` mes, `dd` día, `HH` horas, `mm` minutos y `ss` segundos.
+
+## Listar logs
+
+Para listar `logs` puede hacer uso del componente de visualizar. Puede filtrar los `logs` por los siguientes filtros: fecha de inicio, fecha final y tipo.
+
+![Get all logs](./assets/02.png)
+
+A continuación, podrá encontrar la descripción de los campos del formulario de filtro de `logs`:
+
+| Nombre         | Descripción     | Tipo   | Obligatorio        | Ejemplos                                       |
+| -------------- | --------------- | ------ | ------------------ | ---------------------------------------------- |
+| Initial date** | Fecha de inicio | text   | :heavy_check_mark: | 12/24                                          |
+| Final date**   | Fecha final     | text   | :heavy_check_mark: | 09/30                                          |
+| Status         | Tipo de evento  | select | :heavy_check_mark: | `0-Success`, `1-Info`, `2-Warning` o `3-Error` |
+
+___**Nota:___ El formato de las fechas de inicio y fin es `MM/dd`: `MM` mes y `dd` día.
