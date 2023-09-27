@@ -7,7 +7,8 @@
 	{
 		SUCCESS,
 		INFO,
-		WARNING
+		WARNING,
+		ERROR
 	}
 }
 

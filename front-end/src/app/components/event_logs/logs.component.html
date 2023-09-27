@@ -85,9 +85,13 @@
                         <img src="https://img.icons8.com/material/3498db/96/filled-circle.png" alt="filled-circle"/>
                         Info
                     </p>
-                    <p *ngSwitchDefault>
+                    <p *ngSwitchCase="2">
                         <img src="https://img.icons8.com/material/e67e22/96/filled-circle.png" alt="filled-circle"/>
                         Warning
+                    </p>
+                    <p *ngSwitchDefault>
+                        <img src="https://img.icons8.com/material/e74c3c/96/filled-circle.png" alt="filled-circle"/>
+                        Error
                     </p>
                 </span>
                 <span>{{item.creationDate | date:'medium' }}</span>

@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data;
+using Enums;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebAPI.Filters
 {
 	public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
 	{
+        private ILogsData LogsData { get; }
         public int Order => int.MaxValue - 10;
 
-		public HttpResponseExceptionFilter()
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logsData">Injected logs data layer</param>
+		public HttpResponseExceptionFilter(ILogsData logsData)
 		{
+            LogsData = logsData;
 		}
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -21,6 +30,15 @@ namespace WebAPI.Filters
         {
             if (context.Exception is not null)
             {
+                Log log = new()
+                {
+                    Description = context.Exception.Message,
+                    Type = LogType.ERROR,
+                    CreationDate = DateTime.Now
+                };
+
+                LogsData.Create(log);
+
                 context.Result = new ObjectResult(null)
                 {
                     StatusCode = StatusCodes.Status500InternalServerError

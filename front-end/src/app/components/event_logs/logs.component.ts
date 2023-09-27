@@ -155,7 +155,7 @@ export class LogsComponent implements OnInit, AfterViewInit {
     // Return prepared pagination data
     return {
       pageNumber: 1,
-      pageSize: 15,
+      pageSize: 50,
       type: LogType.All,
       initialDate: beforeDate,
       finalDate: actualDate
@@ -187,6 +187,11 @@ export class LogsComponent implements OnInit, AfterViewInit {
         id: LogType.Warning,
         name: 'Warning',
         color: 'e67e22'
+      },
+      {
+        id: LogType.Error,
+        name: 'Error',
+        color: 'e74c3c'
       }
     ]
   }
