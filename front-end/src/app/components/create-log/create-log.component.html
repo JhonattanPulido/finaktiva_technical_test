@@ -1,0 +1,28 @@
+<form class="log_form">
+    <div class="logs_table --bordered">
+        <div class="logs_table_header table_row">
+            <span>Create event log</span>
+        </div>
+        <div class="table_row log_form_inputs">
+            <p class="form_hint">Fill the form fields to create a new event log. If you don't fill <b>Creation Date</b> fiel, the API set automatically the actual date and time.</p>
+            <div class="form_control">
+                <span>Creation Date <b>(optional)</b></span>
+                <input type="text" placeholder="yyyy/MM/ddTHH:mm:ss" class="input --bordered">
+            </div>
+            <div class="form_control">
+                <span>Type <b>*</b></span>
+                <input type="text" placeholder="MM/dd" class="input --bordered">
+            </div>
+            <div class="form_control form_control_description">
+                <span>Description <b>*</b></span>
+                <input type="text" placeholder="ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit" class="input --bordered">
+            </div>
+        </div>
+    </div>
+    <div class="log_form_submit">
+        <p>Required fields are marked with an asterik (*)</p>
+        <button type="submit" class="btn search_btn --bordered">
+            Create
+        </button>
+    </div>
+</form>

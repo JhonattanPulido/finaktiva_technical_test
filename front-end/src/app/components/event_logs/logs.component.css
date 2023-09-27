@@ -17,12 +17,17 @@
 .notice_text {
     display: flex;
     width: 60%;
+    align-items: center;
     flex-direction: column;
     gap: 1.2rem;
 }
 
 .notice_text * {
     text-align: center;
+}
+
+.notice_text img {
+    width: 3rem;
 }
 
 .notice_text span {
@@ -52,31 +57,8 @@
     font-weight: 500;
 }
 
-.logs_table {
-    overflow: hidden;
-}
-
 .table_row {
-    display: grid;
-    padding: 0 1.2rem;
-    align-items: center;
     grid-template-columns: 3fr 4fr 1fr 2fr;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.table_row:last-child {
-    border-bottom: none;
-}
-
-.logs_table_header {
-    height: 2.8rem;
-    background: var(--tab-color);
-}
-
-.logs_table_header span {
-    font-size: .86rem;
-    text-align: left;
-    color: #656d76;
 }
 
 .logs_table_row {
@@ -113,16 +95,6 @@
 
 .filter_btn {
     background: var(--tab-color);
-}
-
-.search_btn {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    font-weight: 500;
-    color: #ffffff;
-    background: #1A7F37 !important;
-    border-color: #1f883d !important;
 }
 
 .logs_calendar_input {

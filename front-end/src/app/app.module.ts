@@ -9,11 +9,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogsComponent } from './components/event_logs/logs.component';
+import { CreateLogComponent } from './components/create-log/create-log.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogsComponent
+    LogsComponent,
+    CreateLogComponent
   ],
   imports: [
     BrowserModule,

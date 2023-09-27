@@ -5,6 +5,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
     </div>
+    <app-create-log></app-create-log>
     <div class="logs_table_top">
         <div class="logs_table_top_metadata">
             <img src="https://img.icons8.com/material/96/hashtag-large--v1.png" alt="hashtag-large--v1"/>
@@ -61,10 +62,14 @@
             <span>Status</span>
             <span>Date</span>
         </div>
-        <div *ngIf="data; then logsItems else emptyLogs"></div>
+        <div *ngIf="data && data.count > 0; then logsItems else emptyLogs"></div>
         <ng-template #emptyLogs>
-            <div class="table_row">
-                !NONE        
+            <div class="notice">
+                <div class="notice_text">
+                    <img src="https://img.icons8.com/material/96/nothing-found--v2.png" alt="nothing-found--v2"/>
+                    <span>There aren't event logs</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>       
+                </div>
             </div>
         </ng-template>
         <ng-template #logsItems>
