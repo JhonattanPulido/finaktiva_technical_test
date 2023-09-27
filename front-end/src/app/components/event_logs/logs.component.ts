@@ -85,6 +85,21 @@ export class LogsComponent implements OnInit, AfterViewInit {
     this.getAll();
   }
 
+  /**
+   * Reset search filters
+   */
+  public resetSearch(): void {
+    this.spinner.show();
+    this.pagination = this.setPagination();
+    sessionStorage.setItem('pagination', JSON.stringify(this.pagination));
+    this.filtersForm.patchValue({
+      initialDate: this.getMonthAndDay(this.pagination.initialDate),
+      finalDate: this.getMonthAndDay(this.pagination.finalDate),
+      type: this.pagination.type
+    });
+    this.getAll();
+  }
+
   private getAll(): void {
     // Get paginated logs
     this.logsService.getAll(this.pagination)

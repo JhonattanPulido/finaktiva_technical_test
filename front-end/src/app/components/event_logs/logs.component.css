@@ -58,7 +58,7 @@
 }
 
 .table_row {
-    grid-template-columns: 3fr 4fr 1fr 2fr;
+    grid-template-columns: 2fr 5fr 1fr 2fr;
 }
 
 .logs_table_row {

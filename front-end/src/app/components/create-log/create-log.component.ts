@@ -4,7 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { LogType } from 'src/app/enums/log.enum';
 import { Status } from 'src/app/models/status.model';
 import { LogsService } from 'src/app/services/logs.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,6 +18,7 @@ export class CreateLogComponent {
   public statusList: Status[]; // Status list
   public logForm: FormGroup; // Log form group
   @ViewChild('logTypes') logTypes!: ElementRef;
+  @Output() loadLogs: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private toastr: ToastrService,
@@ -67,11 +68,20 @@ export class CreateLogComponent {
       log.creationDate.setHours(hours, minutes, seconds);
     }
 
-    this.toastr.success('Even log created', 'Success', {
-      closeButton: true
-    });
+    this.logsService.create(log)
+      .subscribe(_ => {
+        this.toastr.success('Even log created', 'Success', {
+          closeButton: true
+        });
 
-    this.spinner.hide();
+        this.logForm.reset();
+
+        this.setSelectedLogType(this.statusList[0]);
+    
+        this.spinner.hide();
+
+        this.loadLogs.emit();
+      });
   }
 
   /**

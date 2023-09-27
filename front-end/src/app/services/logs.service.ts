@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
+import { Log } from '../models/log.model';
 import { Injectable } from '@angular/core';
-import { Pagination, PaginationOutput } from '../models/pagination.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { LogType } from '../enums/log.enum';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Pagination, PaginationOutput } from '../models/pagination.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,14 @@ export class LogsService {
   private webApiUrl: string = 'https://localhost:7002/api/logs'
 
   constructor(private http: HttpClient) { }
+
+  /**
+   * Create event log
+   * @param log Event log data
+   */
+  public create(log: Log) : Observable<Object> {
+    return this.http.post(this.webApiUrl, log);
+  }
 
   /**
    * Get paginated logs
