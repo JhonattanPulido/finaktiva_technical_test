@@ -39,3 +39,30 @@ Se hizo uso del motor `MongoDB`, la __BD__ se desplegó en el servicio de nube `
 | descrption    | string   | _"Descripción del evento 1"_                   |
 | type          | int      | `0-Success`, `1-Info`, `2-Warning` o `3-Error` |
 | creation_date | datetime | _"2023-07-27T13:30:12"_                        |
+
+# Guía de Usuario
+
+## Tipos de eventos
+
+| Id | Nombre  | Descripción                                                                     |
+| -- | ------- | ------------------------------------------------------------------------------- |
+| 1  | Success | Evento satisfactorio                                                            |
+| 2  | Info    | Evento informativo                                                              |
+| 3  | Warning | Evento de advertencia                                                           |
+| 4  | Error   | Evento de error interno de la API. Las excepciones se almacenan automáticamente | 
+
+## Crear log
+
+Para guardar un `log` haga uso del formulario de creación de log. El formulario permite introducir los siguientes campos: fecha de creación, tipo y descripción.
+
+![Create Log Form](./assets/01.png)
+
+A continuación, podrá encontrar la descripción de los campos del formulario:
+
+| Nombre          | Descripción                        | Tipo   | Obligatorio        | Ejemplos                            |
+| --------------- | ---------------------------------- |------- | ------------------ | ----------------------------------- |
+| Creation Date** | Fecha y hora de creación del `log` | text   |                    | 09/27T14:30:00                      |
+| Tipo            | Tipo de `log`                      | select | :heavy_check_mark: | `0-Success`, `1-Info` o `2-Warning` |
+| Descripción     | Descripción detallada del `log`    | text   | :heavy_check_mark: | _Descripción del evento 1_          |
+
+___**Nota___: El formato de la fecha de creación es `MM/ddTHH:mm:ss`: `MM` mes, `dd` día, `HH` horas, `mm` minutos y `ss` segundos.
