@@ -48,6 +48,12 @@ body {
     box-shadow: inset 0 0 1.4px #Ccc;
 }
 
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
 .btn {
     height: 100%;
     padding: 0 .82rem;

@@ -16,22 +16,22 @@
                 <span>0 Logs</span>
             </ng-template>
         </div>
-        <div class="logs_table_top_filters">
+        <form class="logs_table_top_filters" [formGroup]="filtersForm" (ngSubmit)="onFilterSubmit()">
             <div class="filter_mask">
                 <button class="btn filter_btn --bordered filter_date_btn">
                     Initial Date
                 </button>
-                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd">
+                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd" formControlName="initialDate">
             </div>
             <div class="filter_mask">
                 <button class="btn filter_btn --bordered filter_date_btn">
                     Final Date
                 </button>
-                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd">
+                <input class="input --bordered logs_calendar_input" type="text" placeholder="MM/dd" formControlName="finalDate">
             </div>
             <div class="filter_mask">
                 <button type="button" class="btn btn_chevron filter_btn --bordered" (click)="manageStatusFilter(true)">
-                    Status
+                    Status ({{statusSelectedFilter.name}})
                     <img src="https://img.icons8.com/material/1F2328/96/sort-down--v1.png" alt="sort-down--v1"/>
                 </button>
                 <ul #statusFilter class="status_menu --bordered">
@@ -41,36 +41,18 @@
                             <img src="https://img.icons8.com/material/96/multiply--v1.png" alt="multiply--v1"/>
                         </button>
                     </li>
-                    <li class="status_menu_item">
-                        <button type="button" class="status_menu_btn">
-                            <img src="https://img.icons8.com/material/000000/96/filled-circle.png" alt="filled-circle"/>
-                            All
-                        </button>
-                    </li>
-                    <li class="status_menu_item">
-                        <button type="button" class="status_menu_btn">
-                            <img src="https://img.icons8.com/material/2ecc71/96/filled-circle.png" alt="filled-circle"/>
-                            Success
-                        </button>
-                    </li>
-                    <li class="status_menu_item">
-                        <button type="button" class="status_menu_btn">
-                            <img src="https://img.icons8.com/material/3498db/96/filled-circle.png" alt="filled-circle"/>
-                            Info
-                        </button>
-                    </li>
-                    <li class="status_menu_item">
-                        <button type="button" class="status_menu_btn">
-                            <img src="https://img.icons8.com/material/e67e22/96/filled-circle.png" alt="filled-circle"/>
-                            Warning
+                    <li *ngFor="let status of statusList" class="status_menu_item">
+                        <button type="button" class="status_menu_btn" (click)="setStatusSelectedFilter(status)">
+                            <img src="https://img.icons8.com/material/{{status.color}}/96/filled-circle.png" alt="filled-circle"/>
+                            {{status.name}}
                         </button>
                     </li>
                 </ul>
             </div>
-            <button type="button" class="btn search_btn --bordered">
+            <button type="submit" [disabled]="!filtersForm.valid" class="btn search_btn --bordered">
                 Search
             </button>
-        </div>
+        </form>
     </div>
     <div class="logs_table --bordered">
         <div class="logs_table_header table_row">
